@@ -4,7 +4,7 @@
 CREATE SCHEMA IF NOT EXISTS smarthome;
 
 --changeset ghostofendless:2
-CREATE SEQUENCE IF NOT EXISTS smarthome.tokens_seq START WITH 1 INCREMENT BY 10 CACHE 1000;
+CREATE SEQUENCE IF NOT EXISTS smarthome.tokens_seq START WITH 1 INCREMENT BY 50 CACHE 1000;
 
 --changeset ghostofendless:3
 CREATE TABLE IF NOT EXISTS smarthome.token
