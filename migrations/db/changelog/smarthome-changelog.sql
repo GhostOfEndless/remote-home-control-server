@@ -17,6 +17,9 @@ CREATE TABLE IF NOT EXISTS smarthome.token
 CREATE TABLE IF NOT EXISTS smarthome.user
 (
     id    BIGINT PRIMARY KEY,
-    token_id BIGINT REFERENCES smarthome.token (id)
+    token_id BIGINT REFERENCES smarthome.token (id),
+    state TEXT NOT NULL,
+    last_message_id INTEGER,
+    role TEXT NOT NULL DEFAULT 'USER'
 );
 

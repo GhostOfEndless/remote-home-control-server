@@ -11,3 +11,10 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+
+telegram:
+  token: ${TELEGRAM_BOT_TOKEN}
+
+logging:
+  level:
+    org.example: debug

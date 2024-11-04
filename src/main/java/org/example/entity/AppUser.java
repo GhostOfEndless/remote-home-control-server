@@ -2,6 +2,8 @@ package org.example.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -12,6 +14,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.service.UserRole;
+import org.example.service.UserState;
 
 @Getter
 @Setter
@@ -29,4 +33,15 @@ public class AppUser {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "token_id")
     private Token token;
+
+    @Column(name = "state", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserState state;
+
+    @Column(name = "last_message_id")
+    private Integer lastMessageId;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 }
