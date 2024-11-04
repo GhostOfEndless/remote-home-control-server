@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    restart: unless-stopped
+    networks:
+      - smarthome-app-tier
+    env_file:
+      - .env
+    volumes:
+      - smarthome_postgres:/var/lib/postgresql/data
+    ports:
+      - '${POSTGRES_PORT}:5432'
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_DB: $POSTGRES_DB
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 3s
+      timeout: 5s
+
+  liquibase:
+    image: liquibase:4.29.2
+    container_name: liquibase
+    restart: on-failure
+    env_file:
+      - .env
+    networks:
+      - smarthome-app-tier
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: [
+      "--url=jdbc:postgresql://postgres:5432/${POSTGRES_DB}",
+      "--username=${POSTGRES_USER}",
+      "--password=${POSTGRES_PASSWORD}",
+      "--search-path=/liquibase/changelog/",
+      "--driver=org.postgresql.Driver",
+      "--changeLogFile=db-changelog.yml",
+      "update"
+    ]
+    volumes:
+      - ../../migrations/db/changelog:/liquibase/changelog/
+
+networks:
+  smarthome-app-tier:
+    name: smarthome-app-tier
+    driver: bridge
+
+volumes:
+  smarthome_postgres:
+    name: smarthome_postgres
+    driver: local
