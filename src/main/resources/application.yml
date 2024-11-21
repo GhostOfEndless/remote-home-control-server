@@ -1,2 +1,20 @@
 server:
   port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_CONTAINER_NAME:localhost}:${POSTGRES_PORT:5433}/${POSTGRES_DB:smart-home-db}
+    username: ${POSTGRES_USER:user}
+    password: ${POSTGRES_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+telegram:
+  token: ${TELEGRAM_BOT_TOKEN}
+
+logging:
+  level:
+    org.example: debug
