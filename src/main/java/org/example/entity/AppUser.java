@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.service.UserRole;
-import org.example.service.UserState;
+import org.example.service.enums.UserState;
 
 @Getter
 @Setter
@@ -40,6 +40,9 @@ public class AppUser {
 
     @Column(name = "last_message_id")
     private Integer lastMessageId;
+
+    @Column(name = "locale")
+    private String locale;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
