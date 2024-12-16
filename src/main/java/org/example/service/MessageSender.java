@@ -41,7 +41,7 @@ public class MessageSender {
     }
   }
 
-  private String buildMessageText(String userLocale, MessagePayload messagePayload) {
+  protected String buildMessageText(String userLocale, MessagePayload messagePayload) {
     String messageResourceCode = messagePayload.messageText().getResourceName();
     Object[] messageArgs = messagePayload.messageArgs()
         .stream()
@@ -53,7 +53,7 @@ public class MessageSender {
     return textResourceService.getText(messageResourceCode, userLocale, messageArgs);
   }
 
-  private InlineKeyboardMarkup buildKeyboard(List<CallbackButtonPayload> callbackButtons, String userLocale) {
+  protected InlineKeyboardMarkup buildKeyboard(List<CallbackButtonPayload> callbackButtons, String userLocale) {
     var listOfRows = callbackButtons.stream()
         .map(callbackButton -> {
               String buttonText = textResourceService.getText(callbackButton.text(), userLocale);
