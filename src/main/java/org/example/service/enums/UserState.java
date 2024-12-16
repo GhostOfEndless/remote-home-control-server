@@ -5,7 +5,9 @@ import java.util.List;
 
 public enum UserState {
   NONE,
-  START;
+  START,
+  HOME_CONTROL,
+  TOKEN;
 
   public static List<String> getBaseNames() {
     return Arrays.stream(UserState.values())

@@ -38,7 +38,7 @@ public class PersonalUpdateProcessingService implements UpdateProcessingService 
     User user = TelegramUtils.getUserFromUpdate(update);
     long userId = user.getId();
     var appUser = appUserService.findById(userId)
-        .orElseGet(() -> appUserService.save(userId));
+        .orElseGet(() -> appUserService.save(userId, user.getFirstName(), user.getLastName()));
 
     Optional.ofNullable(appUser.getState()).ifPresentOrElse(
         state -> handleUpdate(updateType, update, appUser, state),

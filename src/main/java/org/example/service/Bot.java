@@ -18,6 +18,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class Bot implements SpringLongPollingBot, LongPollingSingleThreadUpdateConsumer {
 
     private final TelegramProperties telegramProperties;
+    private final UpdateReceiverService updateReceiverService;
 
     @Override
     public String getBotToken() {
@@ -32,6 +33,7 @@ public class Bot implements SpringLongPollingBot, LongPollingSingleThreadUpdateC
     @Override
     public void consume(Update update) {
         log.debug("New update is: {}", update);
+        updateReceiverService.listenUpdates(update);
     }
 
     @AfterBotRegistration

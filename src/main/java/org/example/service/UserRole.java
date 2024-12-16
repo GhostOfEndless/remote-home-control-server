@@ -5,13 +5,11 @@ import org.jspecify.annotations.NonNull;
 
 public enum UserRole {
     USER,
-    ADMIN,
-    OWNER;
+    ADMIN;
 
     private static final Map<String, UserRole> roleNameToRole = Map.of(
         "USER", USER,
-        "ADMIN", ADMIN,
-        "OWNER", OWNER
+        "ADMIN", ADMIN
     );
 
     public static UserRole getRoleByName(String roleName) {
