@@ -21,7 +21,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 public class PersonalUpdateProcessingService implements UpdateProcessingService {
 
   protected final AppUserService appUserService;
-  private final HashMap<UserState, PersonalUpdateHandler> updateHandlerMap = new HashMap<>();
+  protected final HashMap<UserState, PersonalUpdateHandler> updateHandlerMap = new HashMap<>();
   private final List<PersonalUpdateHandler> updateHandlers;
 
   @PostConstruct
