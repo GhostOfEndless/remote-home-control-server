@@ -1,5 +1,7 @@
 package org.example.handler;
 
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.web.socket.CloseStatus;
@@ -11,6 +13,8 @@ import org.springframework.web.socket.WebSocketSession;
 @NullMarked
 @Slf4j
 public class SessionHandler implements WebSocketHandler {
+
+    private final Map<String, WebSocketSession> tokenToSession = new HashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {

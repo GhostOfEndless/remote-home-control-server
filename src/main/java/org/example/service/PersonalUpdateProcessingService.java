@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.config.TelegramProperties;
 import org.example.entity.AppUser;
 import org.example.service.enums.UserState;
 import org.example.service.handlers.PersonalUpdateHandler;
@@ -24,7 +23,6 @@ public class PersonalUpdateProcessingService implements UpdateProcessingService 
   protected final AppUserService appUserService;
   private final HashMap<UserState, PersonalUpdateHandler> updateHandlerMap = new HashMap<>();
   private final List<PersonalUpdateHandler> updateHandlers;
-  private final TelegramProperties telegramProperties;
 
   @PostConstruct
   public void init() {
@@ -38,7 +36,7 @@ public class PersonalUpdateProcessingService implements UpdateProcessingService 
     User user = TelegramUtils.getUserFromUpdate(update);
     long userId = user.getId();
     var appUser = appUserService.findById(userId)
-        .orElseGet(() -> appUserService.save(userId, user.getFirstName(), user.getLastName()));
+        .orElseGet(() -> appUserService.save(userId, user.getFirstName(), user.getLastName(), user.getUserName()));
 
     Optional.ofNullable(appUser.getState()).ifPresentOrElse(
         state -> handleUpdate(updateType, update, appUser, state),

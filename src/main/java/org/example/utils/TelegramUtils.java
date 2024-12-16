@@ -1,8 +1,12 @@
 package org.example.utils;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
+import org.example.entity.AppUser;
 import org.example.exception.UnsupportedUpdateType;
 import org.example.service.enums.ButtonTextCode;
+import org.example.service.payload.CallbackButtonPayload;
 import org.example.service.payload.CallbackData;
 import org.example.utils.enums.UpdateType;
 import org.jspecify.annotations.NullMarked;
@@ -40,6 +44,16 @@ public class TelegramUtils {
       case CALLBACK -> update.getCallbackQuery().getFrom();
       case UNKNOWN -> throw new UnsupportedUpdateType("Couldn't get user from update %s".formatted(update));
     };
+  }
+
+  public static List<CallbackButtonPayload> buildUserButtons(List<AppUser> appUsers) {
+    return appUsers.stream()
+        .map(user -> CallbackButtonPayload.createUserButton(
+            user.getFirstName(),
+            user.getLastName(),
+            user.getId()
+        ))
+        .collect(Collectors.toList());
   }
 
   public static CallbackData parseCallbackData(CallbackQuery callbackQuery) {

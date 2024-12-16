@@ -47,6 +47,7 @@ public final class HomeControlStateHandler extends PersonalUpdateHandler {
       case BUTTON_BACK -> ProcessingResult.create(UserState.START, messageId);
       case HOME_CONTROL_BUTTON_GENERATE_TOKEN,
            HOME_CONTROL_BUTTON_SHOW_TOKEN -> ProcessingResult.create(UserState.TOKEN, messageId);
+      case HOME_CONTROL_BUTTON_USERS -> ProcessingResult.create(UserState.USERS, messageId);
       default -> ProcessingResult.create(processedUserState, messageId);
     };
   }

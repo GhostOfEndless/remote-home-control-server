@@ -18,11 +18,12 @@ CREATE TABLE IF NOT EXISTS smarthome.user
 (
     id              BIGINT PRIMARY KEY,
     token_id        BIGINT REFERENCES smarthome.token (id),
-    first_name      TEXT    NOT NULL,
-    last_name       TEXT    NOT NULL,
+    first_name      TEXT NOT NULL,
+    last_name       TEXT NOT NULL,
+    username        TEXT,
     state           TEXT,
     last_message_id INTEGER,
-    role            TEXT    NOT NULL,
-    locale          TEXT    NOT NULL
+    role            TEXT NOT NULL,
+    locale          TEXT NOT NULL
 );
 

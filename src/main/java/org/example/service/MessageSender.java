@@ -35,7 +35,7 @@ public class MessageSender {
       } else {
         telegramClientService.editMessage(userId, messageId, messageText, keyboardMarkup);
       }
-      appUserService.update(appUser.getId(), messageId, state);
+      appUserService.update(appUser, messageId, state);
     } catch (TelegramApiException e) {
       log.error("Telegram API Error: {}", e.getMessage());
     }

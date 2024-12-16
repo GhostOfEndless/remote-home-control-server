@@ -7,6 +7,9 @@ public enum UserState {
   NONE,
   START,
   HOME_CONTROL,
+  USER_ADDITION,
+  USERS,
+  USER,
   TOKEN;
 
   public static List<String> getBaseNames() {

@@ -40,6 +40,9 @@ public class AppUser {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "state")
     @Enumerated(EnumType.STRING)
     private UserState state;

@@ -1,5 +1,6 @@
 package org.example.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.entity.AppUser;
 import org.example.entity.Token;
@@ -17,29 +18,46 @@ public class AppUserService {
     private final AppUserRepository repository;
 
     public Optional<AppUser> findById(Long id) {
-        return repository.findById(id);
+        return repository.findByIdWithToken(id);
     }
 
-    public void update(Long userId, Integer messageId, UserState newState) {
-        AppUser user = findById(userId).orElseThrow();
-        user.setLastMessageId(messageId);
-        user.setState(newState);
-        repository.save(user);
+    public List<AppUser> findAllByTokenWithoutCurrent(Long currentUserId, Token token) {
+        return repository.findAllByTokenWithoutCurrent(currentUserId, token);
     }
 
-    public void createToken(@NonNull AppUser user, String newToken) {
-        Token token = new Token();
-        token.setToken(newToken);
-        user.setToken(token);
-        user.setRole(UserRole.ADMIN);
-        repository.save(user);
+    public Optional<AppUser> findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
-    public AppUser save(Long userId, String firstName, String lastName) {
+    public void update(@NonNull AppUser appUser, Integer messageId, UserState newState) {
+        appUser.setLastMessageId(messageId);
+        appUser.setState(newState);
+        repository.save(appUser);
+    }
+
+    public void update(@NonNull AppUser appUser, Token token, UserRole userRole) {
+        appUser.setToken(token);
+        appUser.setRole(userRole);
+        repository.save(appUser);
+    }
+
+    public void update(@NonNull AppUser appUser, Token token) {
+        appUser.setToken(token);
+        repository.save(appUser);
+    }
+
+    public void removeTokenFromUser(@NonNull Long userId) {
+        AppUser appUser = findById(userId).orElseThrow();
+        appUser.setToken(null);
+        repository.save(appUser);
+    }
+
+    public AppUser save(Long userId, String firstName, String lastName, String username) {
         AppUser appUser = new AppUser();
         appUser.setId(userId);
         appUser.setFirstName(firstName);
         appUser.setLastName(Optional.ofNullable(lastName).orElse(""));
+        appUser.setUsername(username);
         appUser.setLocale("ru");
         appUser.setRole(UserRole.USER);
         return repository.save(appUser);
