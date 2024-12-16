@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.service.UserRole;
-import org.example.service.UserState;
+import org.example.service.enums.UserState;
 
 @Getter
 @Setter
@@ -34,12 +34,24 @@ public class AppUser {
     @JoinColumn(name = "token_id")
     private Token token;
 
-    @Column(name = "state", nullable = false)
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "state")
     @Enumerated(EnumType.STRING)
     private UserState state;
 
     @Column(name = "last_message_id")
     private Integer lastMessageId;
+
+    @Column(name = "locale")
+    private String locale;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
